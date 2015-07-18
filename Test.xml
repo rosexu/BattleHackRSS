@@ -5,16 +5,20 @@
 		<title>W3Schools Home Page</title>
 		<link>http://www.w3schools.com</link>
 		<description>Free web building tutorials</description>
-		
+
 		<item>
 			<title>Turn off music</title>
 			<link>http://www.w3schools.com/webservices</link>
 			<description>turn the music off</description>
+			<pubDate>Thu, 27 Apr 2006</pubDate>
+			<guid>http://rosexu.github.io/BattleHackRSS/1</guid>
 		</item>
 		<item>
 			<title>Turn on music</title>
 			<link>http://www.w3schools.com/music</link>
 			<description>turn the music on</description>
+			<pubDate>Thu, 18 Jul 2015</pubDate>
+			<guid>http://rosexu.github.io/BattleHackRSS/2</guid>
 		</item>
 	</channel>
 
