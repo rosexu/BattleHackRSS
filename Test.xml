@@ -2,9 +2,9 @@
 <rss version="2.0">
 
 	<channel>
-		<title>W3Schools Home Page</title>
-		<link>http://www.w3schools.com</link>
-		<description>Free web building tutorials</description>
+		<title>RSS hack</title>
+		<link>http://rosexu.github.io/BattleHackRSS</link>
+		<description>testing RSS</description>
 
 		<item>
 			<title>Turn off music</title>
