@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+
+	<channel>
+		<title>W3Schools Home Page</title>
+		<link>http://www.w3schools.com</link>
+		<description>Free web building tutorials</description>
+		
+		<item>
+			<title>Turn off music</title>
+			<link>http://www.w3schools.com/webservices</link>
+			<description>turn the music off</description>
+		</item>
+		<item>
+			<title>Turn on music</title>
+			<link>http://www.w3schools.com/music</link>
+			<description>turn the music on</description>
+		</item>
+	</channel>
+
+</rss>
