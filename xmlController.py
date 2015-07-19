@@ -1,12 +1,9 @@
 import xml.etree.ElementTree as ET
-from xml.etree.ElementTree import ElementTree
 from email.Utils import formatdate
-tree = ET.parse('Test.xml')
-root = tree.getroot()
+from flask import Flask
+from flask import Flask, request
 
-# tree1 = ET.parse('haha.xml')
-
-channel = root[0]
+app = Flask(__name__)
 
 
 # userID should be passed in as a string with no spaces
@@ -25,7 +22,6 @@ def createNewXml(userID, action):
 
 
 def makeFirstItem(channel1, action, userID):
-    
     ET.SubElement(channel1, "title").text = "RSS Feed for IFTTT"
     ET.SubElement(channel1, "link").text = "http://rosexu.github.io/BattleHackRSS/" + userID
     ET.SubElement(channel1, "description").text = "Personalized RSS for user " + userID
@@ -41,6 +37,16 @@ def populateSubfields(item, title, link, desc, date, guid):
     ET.SubElement(item, "guid").text = guid
 
 
+@app.route("/addtoxml", methods=['POST'])
+def postXmlData():
+    userID = request.form.get("userid")
+    action = request.form.get("action")
+    app.logger.info(userID)
+    app.logger.info(action)
+    # handleRequest(userID, action)
+    return userID
+
+
 def handleRequest(userID, action):
     try:
         fileName = getFileNameForUser(userID)
@@ -48,6 +54,12 @@ def handleRequest(userID, action):
         addNewItem(fileName, "hola friend", "link", "description", getCurrentTime(), getNewGuid(fileName, getLastChildIndex(fileName)))
     except IOError:
         createNewXml(userID, action)
+
+
+@app.route("/")
+def hello():
+    print "hello"
+    return "hello!"
 
 
 def getChannel(fileName):
@@ -100,4 +112,7 @@ def addNewItem(fileName, title, link, description, pubDate, guid):
 # addNewItem("turn music off", "link", "description", getCurrentTime(), getNewGuid(getLastChildIndex()))
 # makes a new xml file for first time users
 # createNewXml("20565628", "make music")
-handleRequest("20565627", "make candy")
+# handleRequest("20565627", "make candy")
+
+if __name__ == "__main__":
+    app.run(debug=True)
