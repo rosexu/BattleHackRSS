@@ -43,15 +43,15 @@ def postXmlData():
     action = request.form.get("action")
     app.logger.info(userID)
     app.logger.info(action)
-    # handleRequest(userID, action)
-    return userID
+    handleRequest(userID, action)
+    return "success"
 
 
 def handleRequest(userID, action):
     try:
         fileName = getFileNameForUser(userID)
+        addNewItem(fileName, action, "link", "description", getCurrentTime(), getNewGuid(fileName, getLastChildIndex(fileName)))
         print "file exists"
-        addNewItem(fileName, "hola friend", "link", "description", getCurrentTime(), getNewGuid(fileName, getLastChildIndex(fileName)))
     except IOError:
         createNewXml(userID, action)
 
