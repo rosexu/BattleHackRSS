@@ -115,4 +115,4 @@ def addNewItem(fileName, title, link, description, pubDate, guid):
 # handleRequest("20565627", "make candy")
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, port=80)
