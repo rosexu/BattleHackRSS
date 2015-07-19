@@ -94,7 +94,7 @@ def addNewItem(fileName, title, link, description, pubDate, guid):
     item = ET.SubElement(channel, "item")
     populateSubfields(item, title, link, description, pubDate, guid)
     print ET.tostring(tree.getroot())
-    tree.write(fileName)
+    tree.write(fileName, encoding="UTF-8")
 
 # this adds a new item to Test.xml(RSS feed) with child tags of the things you passes in.
 # addNewItem("turn music off", "link", "description", getCurrentTime(), getNewGuid(getLastChildIndex()))
