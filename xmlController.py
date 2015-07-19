@@ -25,10 +25,11 @@ def createNewXml(userID, action):
 
 
 def makeFirstItem(channel1, action, userID):
-    newItem = ET.SubElement(channel1, "item")
+    
     ET.SubElement(channel1, "title").text = "RSS Feed for IFTTT"
     ET.SubElement(channel1, "link").text = "http://rosexu.github.io/BattleHackRSS/" + userID
     ET.SubElement(channel1, "description").text = "Personalized RSS for user " + userID
+    newItem = ET.SubElement(channel1, "item")
     populateSubfields(newItem, action, "http://rosexu.github.io/BattleHackRSS/" + userID, "Personalized RSS for user " + userID, getCurrentTime(), "http://rosexu.github.io/BattleHackRSS/" + userID + "1")
 
 
@@ -42,24 +43,36 @@ def populateSubfields(item, title, link, desc, date, guid):
 
 def handleRequest(userID, action):
     try:
-        aTree = ET.parse(getFileNameForUser(userID))
+        fileName = getFileNameForUser(userID)
         print "file exists"
+        addNewItem(fileName, "hola friend", "link", "description", getCurrentTime(), getNewGuid(fileName, getLastChildIndex(fileName)))
     except IOError:
-        createNewXml(userID)
+        createNewXml(userID, action)
+
+
+def getChannel(fileName):
+    tree = ET.parse(fileName)
+    root = tree.getroot()
+
+    # tree1 = ET.parse('haha.xml')
+
+    return root[0]
 
 
 def getCurrentTime():
     return formatdate()
 
 
-def getLastChildIndex():
+def getLastChildIndex(fileName):
+    channel = getChannel(fileName)
     index = 0
     for child in channel:
         index += 1
     return index
 
 
-def getNewGuid(index):
+def getNewGuid(fileName, index):
+    channel = getChannel(fileName)
     oldGuid = channel[index-1].find("guid")
     try:
         lastCharOfOldGuid = int(oldGuid.text[-1:])
@@ -70,17 +83,21 @@ def getNewGuid(index):
         print "error: last char is not a number"
 
 
-def addNewItem(title, link, description, pubDate, guid):
+def addNewItem(fileName, title, link, description, pubDate, guid):
+    tree = ET.parse(fileName)
+    root = tree.getroot()
+
+    # tree1 = ET.parse('haha.xml')
+
+    channel = root[0]
+    print ET.tostring(channel)
     item = ET.SubElement(channel, "item")
-    ET.SubElement(item, "title").text = title
-    ET.SubElement(item, "link").text = link
-    ET.SubElement(item, "description").text = description
-    ET.SubElement(item, "pubDate").text = pubDate
-    ET.SubElement(item, "guid").text = guid
-    tree.write('Test.xml')
+    populateSubfields(item, title, link, description, pubDate, guid)
+    print ET.tostring(tree.getroot())
+    tree.write(fileName)
 
 # this adds a new item to Test.xml(RSS feed) with child tags of the things you passes in.
 # addNewItem("turn music off", "link", "description", getCurrentTime(), getNewGuid(getLastChildIndex()))
-print getFileNameForUser("20565628")
 # makes a new xml file for first time users
-createNewXml("20565628", "make music")
+# createNewXml("20565628", "make music")
+handleRequest("20565627", "make candy")
