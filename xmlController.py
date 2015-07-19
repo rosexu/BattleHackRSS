@@ -10,7 +10,7 @@ app = Flask(__name__)
 # userID should be passed in as a string with no spaces
 def getFileNameForUser(userID):
     extension = ".xml"
-    return userID + extension
+    return "static/" + userID + extension
 
 
 def createNewXml(userID, action):
